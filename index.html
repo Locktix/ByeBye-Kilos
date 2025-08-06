@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByeBye Kilos - Votre compagnon régime et sport</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-weight"></i>
+                <span>ByeBye Kilos</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#dashboard" class="nav-link active">Tableau de bord</a></li>
+                <li><a href="#nutrition" class="nav-link">Nutrition</a></li>
+                <li><a href="#workouts" class="nav-link">Entraînements</a></li>
+                <li><a href="#progress" class="nav-link">Progrès</a></li>
+                <li><a href="#recipes" class="nav-link">Recettes</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Section principale -->
+    <main>
+        <!-- Dashboard -->
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <h1>Bienvenue sur ByeBye Kilos</h1>
+                <p class="subtitle">Votre compagnon pour atteindre vos objectifs santé</p>
+                
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Progrès du jour</h3>
+                        <div class="progress-circle">
+                            <div class="progress-text">
+                                <span class="progress-number">75%</span>
+                                <span class="progress-label">Objectif atteint</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h3>Calories</h3>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <span class="stat-number">1200</span>
+                                <span class="stat-label">Consommées</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">1800</span>
+                                <span class="stat-label">Objectif</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h3>Activité</h3>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <span class="stat-number">45</span>
+                                <span class="stat-label">Minutes</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">300</span>
+                                <span class="stat-label">Calories brûlées</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <h3>Hydratation</h3>
+                        <div class="water-tracker">
+                            <div class="water-glasses">
+                                <div class="glass filled"></div>
+                                <div class="glass filled"></div>
+                                <div class="glass filled"></div>
+                                <div class="glass"></div>
+                                <div class="glass"></div>
+                                <div class="glass"></div>
+                                <div class="glass"></div>
+                                <div class="glass"></div>
+                            </div>
+                            <span class="water-text">3/8 verres</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Actions rapides</h2>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="showNutritionModal()">
+                            <i class="fas fa-utensils"></i>
+                            Ajouter un repas
+                        </button>
+                        <button class="action-btn" onclick="showWorkoutModal()">
+                            <i class="fas fa-play"></i>
+                            Commencer un entraînement
+                        </button>
+                        <button class="action-btn" onclick="showWeightModal()">
+                            <i class="fas fa-weight"></i>
+                            Enregistrer mon poids
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nutrition Section -->
+        <section id="nutrition" class="section">
+            <div class="container">
+                <h2>Nutrition</h2>
+                <div class="nutrition-grid">
+                    <div class="nutrition-card">
+                        <h3>Calculateur de calories</h3>
+                        <form class="calorie-calculator">
+                            <div class="form-group">
+                                <label>Âge</label>
+                                <input type="number" id="age" placeholder="25">
+                            </div>
+                            <div class="form-group">
+                                <label>Poids (kg)</label>
+                                <input type="number" id="weight" placeholder="70">
+                            </div>
+                            <div class="form-group">
+                                <label>Taille (cm)</label>
+                                <input type="number" id="height" placeholder="170">
+                            </div>
+                            <div class="form-group">
+                                <label>Niveau d'activité</label>
+                                <select id="activity">
+                                    <option value="1.2">Sédentaire</option>
+                                    <option value="1.375">Légèrement actif</option>
+                                    <option value="1.55">Modérément actif</option>
+                                    <option value="1.725">Très actif</option>
+                                    <option value="1.9">Extrêmement actif</option>
+                                </select>
+                            </div>
+                            <button type="button" onclick="calculateCalories()" class="btn-primary">
+                                Calculer mes besoins
+                            </button>
+                        </form>
+                        <div id="calorie-result" class="calorie-result"></div>
+                    </div>
+
+                    <div class="nutrition-card">
+                        <h3>Journal alimentaire</h3>
+                        <div class="meal-tracker">
+                            <div class="meal-input">
+                                <input type="text" id="meal-name" placeholder="Nom du repas">
+                                <input type="number" id="meal-calories" placeholder="Calories">
+                                <button onclick="addMeal()" class="btn-secondary">Ajouter</button>
+                            </div>
+                            <div id="meals-list" class="meals-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workouts Section -->
+        <section id="workouts" class="section">
+            <div class="container">
+                <h2>Entraînements</h2>
+                <div class="workout-grid">
+                    <div class="workout-card">
+                        <div class="workout-image cardio"></div>
+                        <div class="workout-content">
+                            <h3>Cardio</h3>
+                            <p>30 minutes d'exercices cardiovasculaires</p>
+                            <div class="workout-stats">
+                                <span><i class="fas fa-fire"></i> 300 cal</span>
+                                <span><i class="fas fa-clock"></i> 30 min</span>
+                            </div>
+                            <button class="btn-primary">Commencer</button>
+                        </div>
+                    </div>
+
+                    <div class="workout-card">
+                        <div class="workout-image strength"></div>
+                        <div class="workout-content">
+                            <h3>Musculation</h3>
+                            <p>Exercices de renforcement musculaire</p>
+                            <div class="workout-stats">
+                                <span><i class="fas fa-fire"></i> 250 cal</span>
+                                <span><i class="fas fa-clock"></i> 45 min</span>
+                            </div>
+                            <button class="btn-primary">Commencer</button>
+                        </div>
+                    </div>
+
+                    <div class="workout-card">
+                        <div class="workout-image yoga"></div>
+                        <div class="workout-content">
+                            <h3>Yoga</h3>
+                            <p>Séance de yoga pour la flexibilité</p>
+                            <div class="workout-stats">
+                                <span><i class="fas fa-fire"></i> 150 cal</span>
+                                <span><i class="fas fa-clock"></i> 60 min</span>
+                            </div>
+                            <button class="btn-primary">Commencer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progress" class="section">
+            <div class="container">
+                <h2>Suivi des progrès</h2>
+                <div class="progress-grid">
+                    <div class="progress-card">
+                        <h3>Évolution du poids</h3>
+                        <canvas id="weightChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="progress-card">
+                        <h3>Mesures corporelles</h3>
+                        <div class="measurements">
+                            <div class="measurement-item">
+                                <label>Tour de taille (cm)</label>
+                                <input type="number" id="waist" placeholder="80">
+                            </div>
+                            <div class="measurement-item">
+                                <label>Tour de hanches (cm)</label>
+                                <input type="number" id="hips" placeholder="95">
+                            </div>
+                            <div class="measurement-item">
+                                <label>Tour de bras (cm)</label>
+                                <input type="number" id="arms" placeholder="30">
+                            </div>
+                            <button onclick="saveMeasurements()" class="btn-primary">Sauvegarder</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recipes Section -->
+        <section id="recipes" class="section">
+            <div class="container">
+                <h2>Recettes saines</h2>
+                <div class="recipes-grid">
+                    <div class="recipe-card">
+                        <div class="recipe-image salad"></div>
+                        <div class="recipe-content">
+                            <h3>Salade protéinée</h3>
+                            <p>Salade riche en protéines avec poulet grillé</p>
+                            <div class="recipe-stats">
+                                <span><i class="fas fa-fire"></i> 350 cal</span>
+                                <span><i class="fas fa-clock"></i> 15 min</span>
+                            </div>
+                            <button class="btn-secondary">Voir la recette</button>
+                        </div>
+                    </div>
+
+                    <div class="recipe-card">
+                        <div class="recipe-image smoothie"></div>
+                        <div class="recipe-content">
+                            <h3>Smoothie vert</h3>
+                            <p>Smoothie énergisant aux fruits et légumes</p>
+                            <div class="recipe-stats">
+                                <span><i class="fas fa-fire"></i> 200 cal</span>
+                                <span><i class="fas fa-clock"></i> 5 min</span>
+                            </div>
+                            <button class="btn-secondary">Voir la recette</button>
+                        </div>
+                    </div>
+
+                    <div class="recipe-card">
+                        <div class="recipe-image bowl"></div>
+                        <div class="recipe-content">
+                            <h3>Bowl healthy</h3>
+                            <p>Bowl nutritif avec quinoa et légumes</p>
+                            <div class="recipe-stats">
+                                <span><i class="fas fa-fire"></i> 400 cal</span>
+                                <span><i class="fas fa-clock"></i> 20 min</span>
+                            </div>
+                            <button class="btn-secondary">Voir la recette</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="nutritionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Ajouter un repas</h2>
+            <form class="meal-form">
+                <div class="form-group">
+                    <label>Type de repas</label>
+                    <select id="meal-type">
+                        <option value="breakfast">Petit-déjeuner</option>
+                        <option value="lunch">Déjeuner</option>
+                        <option value="dinner">Dîner</option>
+                        <option value="snack">Collation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Aliments</label>
+                    <input type="text" id="food-items" placeholder="Ex: Poulet, riz, légumes">
+                </div>
+                <div class="form-group">
+                    <label>Calories</label>
+                    <input type="number" id="meal-calories-modal" placeholder="300">
+                </div>
+                <button type="button" onclick="saveMeal()" class="btn-primary">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
