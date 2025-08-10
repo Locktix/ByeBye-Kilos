@@ -116,8 +116,107 @@ function showWorkoutModal() {
 }
 
 function showWeightModal() {
-    // Modal pour enregistrer le poids (à implémenter)
-    alert('Fonctionnalité de suivi du poids à venir !');
+    const modal = document.getElementById('weightModal');
+    modal.style.display = 'block';
+    displayWeightHistory();
+}
+
+function saveWeight() {
+    const currentWeight = document.getElementById('current-weight').value;
+    
+    if (!currentWeight || isNaN(currentWeight)) {
+        alert('Veuillez entrer un poids valide');
+        return;
+    }
+    
+    const weight = parseFloat(currentWeight);
+    addWeightEntry(weight);
+    
+    // Vider le champ
+    document.getElementById('current-weight').value = '';
+    
+    // Fermer la modale
+    document.getElementById('weightModal').style.display = 'none';
+}
+
+function displayWeightHistory() {
+    const weightList = document.getElementById('weight-list');
+    if (!weightList) return;
+    
+    weightList.innerHTML = '';
+    
+    if (weightHistory.length === 0) {
+        weightList.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Aucun poids enregistré</p>';
+        return;
+    }
+    
+    // Trier par date (plus récent en premier)
+    const sortedHistory = weightHistory
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 10); // Afficher les 10 derniers
+    
+    sortedHistory.forEach((entry, index) => {
+        const weightElement = document.createElement('div');
+        weightElement.className = 'weight-item';
+        
+        // Calculer la variation
+        let changeText = '';
+        let changeClass = 'neutral';
+        
+        if (index < sortedHistory.length - 1) {
+            const currentWeight = entry.weight;
+            const previousWeight = sortedHistory[index + 1].weight;
+            const change = currentWeight - previousWeight;
+            
+            if (change > 0) {
+                changeText = `+${change.toFixed(1)} kg`;
+                changeClass = 'positive';
+            } else if (change < 0) {
+                changeText = `${change.toFixed(1)} kg`;
+                changeClass = 'negative';
+            } else {
+                changeText = '0 kg';
+                changeClass = 'neutral';
+            }
+        }
+        
+        weightElement.innerHTML = `
+            <div class="weight-info">
+                <div class="weight-value">${entry.weight} kg</div>
+                <div class="weight-date">${formatDate(entry.date)}</div>
+            </div>
+            ${changeText ? `<span class="weight-change ${changeClass}">${changeText}</span>` : ''}
+            <button class="delete-weight" onclick="deleteWeightEntry('${entry.date}')">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        
+        weightList.appendChild(weightElement);
+    });
+}
+
+function deleteWeightEntry(dateString) {
+    weightHistory = weightHistory.filter(entry => entry.date !== dateString);
+    saveWeightHistory();
+    displayWeightHistory();
+    updateWeightChart();
+    showNotification('Poids supprimé !', 'info');
+}
+
+function addWeightEntry(weight) {
+    const entry = {
+        date: new Date().toISOString(),
+        weight: parseFloat(weight)
+    };
+    
+    weightHistory.push(entry);
+    saveWeightHistory();
+    updateWeightChart();
+    showNotification('Poids enregistré !', 'success');
+}
+
+function saveWeightHistory() {
+    localStorage.setItem('weightHistory', JSON.stringify(weightHistory));
 }
 
 function calculateCalories() {
@@ -268,22 +367,6 @@ function saveMeal() {
     document.getElementById('meal-calories-modal').value = '';
     
     showNotification('Repas enregistré avec succès !', 'success');
-}
-
-function addWeightEntry(weight) {
-    const entry = {
-        date: new Date().toISOString(),
-        weight: parseFloat(weight)
-    };
-    
-    weightHistory.push(entry);
-    saveWeightHistory();
-    updateWeightChart();
-    showNotification('Poids enregistré !', 'success');
-}
-
-function saveWeightHistory() {
-    localStorage.setItem('weightHistory', JSON.stringify(weightHistory));
 }
 
 function saveMeasurements() {
